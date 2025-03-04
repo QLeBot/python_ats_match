@@ -93,6 +93,7 @@ coverage.xml
 Thumbs.db
 
 # Resume
+*.tex
 resume_fr.txt
 resume_en.txt
 

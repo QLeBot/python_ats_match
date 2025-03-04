@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from openai import OpenAI
+from pylatex import Command, Document, Section, Subsection
+from pylatex.utils import NoEscape, italic
 
 client = OpenAI()
 
@@ -55,6 +57,16 @@ def generate_cover_letter():
         return jsonify({
             "error": str(e)
         }), 500
+    
+@app.route('/api/generate-resume', methods=['POST'])
+def generate_resume():
+    data = request.json
+    resume = data.get('resume')
+
+    # use pylatex to generate a resume
+    doc = Document(filepath='resume.tex')
+    doc.generate_pdf(clean_tex=True, compiler='pdflatex')
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
